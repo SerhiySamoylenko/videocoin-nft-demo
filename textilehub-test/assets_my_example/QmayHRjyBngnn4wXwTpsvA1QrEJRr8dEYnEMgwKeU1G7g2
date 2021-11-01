@@ -1,0 +1,10 @@
+{
+  "name": "Engine nft",
+  "description": "Engine cool nft",
+  "image": "http://frankly-video-uploads-dev.s3-website-us-east-1.amazonaws.com/videonft/QmYHmpX5L86ev3uqdCcBZzVJqPaojVx4dRs1TsfSWcqFrV",
+  "animation_url": "http://frankly-video-uploads-dev.s3-website-us-east-1.amazonaws.com/videonft/QmRiCwvf6542S3SV6JSnLriEoHTom1MrT55steKsAt8s9K",
+  "external_link_encrypted": "http://frankly-video-uploads-dev.s3-website-us-east-1.amazonaws.com/videonft/QmdVkc33xzXAm4GVQzu3H3L3tbLesYCuEk5jNHD45Rnhyu",
+  "ipfs_image": "ipfs://QmYHmpX5L86ev3uqdCcBZzVJqPaojVx4dRs1TsfSWcqFrV",
+  "ipfs_animation_url": "ipfs://QmRiCwvf6542S3SV6JSnLriEoHTom1MrT55steKsAt8s9K",
+  "ipfs_external_link_encrypted": "ipfs://QmdVkc33xzXAm4GVQzu3H3L3tbLesYCuEk5jNHD45Rnhyu"
+}

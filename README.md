@@ -11,7 +11,7 @@ Steps
 
 ## Clone the videocoin-nft-demo repo
 ```
-git clone https://github.com/videocoin/videocoin-nft-demo
+git clone https://github.com/SerhiySamoylenko/videocoin-nft-demo
 cd textilehub-test
 ```
 
@@ -79,19 +79,36 @@ VidNft721.deploy("VidNftTest", "TST1", {'from':accounts[0]})
 ```
 Note the contract address. Example:  
 0x71f906422138478E9FF633ccE791E596679a67a7
+(0x3649D96eCf0bD2808B2836386Aba919EC14Aa719)
 
 ## Create Video Assests for VID NFT
 
 Create video assets for the NFT using the create_assets script. Supply the input video. The script creates thumbnail image, encrypted video and token URI file for the NFT. The files are copied to assets sub-folder mapped to textile Hub
 
+
 A temporary mechanism for generating CIDs, run ipfs. It is not required in the final env.
 ```
 ipfs daemon
 ```
-Example command: Supply the input file, token id and description.
 
+Get the bucket url 
 ```
-python3 create_assets.py -i firstfilm.mp4 -t 3000 -n "my nft" -d "my cool nft"
+cd assets
+hub bucket links
+```
+The output will look like:
+```
+> Your bucket links:
+> https://hub.textile.io/thread/bafk3eedc4dodjvf6mlsdhyhucrmdb2ocjfqy3w2gozfhplfwzabylra/buckets/bafzbeigc2hg7qu77jgt7rbne4mmq6eciwiyy5xsavmnzsfti4yr3rfyfiq Thread link
+> https://hub.textile.io/ipns/bafzbeigc2hg7qu77jgt7rbne4mmq6eciwiyy5xsavmnzsfti4yr3rfyfiq IPNS link (propagation can be slow)
+> https://bafzbeigc2hg7qu77jgt7rbne4mmq6eciwiyy5xsavmnzsfti4yr3rfyfiq.textile.space Bucket website
+```
+The second link is the bucket ipns link
+
+Run script to prepare assets.
+Example command: Supply the input file, token id, name, description and bucket ipns url
+```
+python3 create_assets.py -i test_engine.mp4 -t 3000 -n "Engine nft" -d "Engine cool nft" -g "https://hub.textile.io/ipns/bafzbeigc2hg7qu77jgt7rbne4mmq6eciwiyy5xsavmnzsfti4yr3rfyfiq/"
 ```
 Token URI contents example:
 ```
@@ -118,18 +135,21 @@ hub bucket push
 Alternately use hubjs node application described previously.
 
 ## Mint VID NFT
+Update mint_nft.py script with your contract address
 use the script mint_nft.py  to mint a VID NFT. Supply token ID for the NFT with -t option and token uri with -u option.   
 
 Set environment varibales to supply infura project ID and private key for sigming mint transactions.
-
+Private key is the key you used when created new account (which is wallet on testnet) in brownie.
 ```
-export PRIVATE_KEY="AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-export WEB3_INFURA_PROJECT_ID=AAAAAAAAAAAAAAAAAA
+export PRIVATE_KEY="ee3da41b5b2554f2dbf9d0e...d0aabc28712ff9c42a17da6f50a4"
+export WEB3_INFURA_PROJECT_ID=b94073ab4ac0493b9dda42a6747d69bd
 ```
 
 Example mint command.
 ```
 python3 mint_nft.py -t 1730 -u https://hub.textile.io/ipns/bafzbeieigdvhfntbfkf7semdska5bxokinvs6oi43yimwgzryvtnbj6rte/QmZ2d3be8b9jRcWmpXzBTgihKuRDZQiMqMN2xguv9bvcLq
+
+python3 mint_nft.py -t 1730 -u https://hub.textile.io/ipns/bafzbeigc2hg7qu77jgt7rbne4mmq6eciwiyy5xsavmnzsfti4yr3rfyfiq/QmaJGSviXRMRu9e118yJGDn29Us29oWC3ZA5M9NjsYT6Jw
 ```
 ## Access the VID NFT using a dApp
 

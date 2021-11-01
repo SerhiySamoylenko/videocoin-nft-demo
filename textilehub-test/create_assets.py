@@ -1,5 +1,5 @@
 import sys
-import ipfsApi
+import ipfshttpclient
 import json
 import argparse
 from pprint import pprint
@@ -8,7 +8,7 @@ from ecies import encrypt, decrypt
 import shutil
 
 def ffmpeg_encrypt(input, output, loglevel, encryption_key, encryption_id):
-    call(["/usr/bin/ffmpeg", "-y", "-i", input, "-vcodec", "copy", "-acodec", "copy", "-encryption_scheme", "cenc-aes-ctr", "-loglevel", loglevel, "-encryption_key", encryption_key,
+    call(["ffmpeg", "-y", "-i", input, "-vcodec", "copy", "-acodec", "copy", "-encryption_scheme", "cenc-aes-ctr", "-loglevel", loglevel, "-encryption_key", encryption_key,
           "-encryption_kid", encryption_id, output])
 
 def ffmpeg_getimage(input, output):
@@ -17,11 +17,12 @@ def ffmpeg_getimage(input, output):
 parser = argparse.ArgumentParser(description='VidNft testing.')
 parser.add_argument('-i', '--input',type=str, default="", help='Input file')
 parser.add_argument('-t', '--token',type=str, default="", help='Token ID hex string')
-parser.add_argument('-n', '--name',type=str, default="Racing Horse", help='Name string')
-parser.add_argument('-d', '--description',type=str, default="First Motion Picture 1878", help='Description string')
+parser.add_argument('-n', '--name',type=str, default="Frankly Test Video", help='Name string')
+parser.add_argument('-d', '--description',type=str, default="Frankly Test Video - Tears of Steel fragment", help='Description string')
 parser.add_argument('-g', '--gateway',type=str, default="", help='bucket url')
 parser.add_argument('-e', '--encryption_key',type=str, default="76a6c65c5ea762046bd749a2e632ccbb", help='Encryption key')
-parser.add_argument('-c', '--contract_address',type=str, default="0x71f906422138478E9FF633ccE791E596679a67a7", help='Contract address')
+#parser.add_argument('-c', '--contract_address',type=str, default="0x71f906422138478E9FF633ccE791E596679a67a7", help='Contract address')
+parser.add_argument('-c', '--contract_address',type=str, default="0x3649D96eCf0bD2808B2836386Aba919EC14Aa719", help='Contract address')
 parser.add_argument('--encryption_kid',type=str, default="a7e61c373e219033c21091fa607bf3b8", help='Encryption key ID')
 parser.add_argument('-r', '--receiver_pubkey',type=str, default="", help='Receiver Public Key')
 
@@ -33,7 +34,7 @@ output_name = "encrypted_" + args.input
 ffmpeg_encrypt(args.input, output_name, "info", args.encryption_key, args.encryption_kid)
 ffmpeg_getimage(args.input,  "image.jpg")
 
-api = ipfsApi.Client('127.0.0.1', 5001)
+api = ipfshttpclient.Api.Client('127.0.0.1', 5001)
 resInput = api.add(args.input)
 pprint(resInput)
 print(resInput["Hash"])

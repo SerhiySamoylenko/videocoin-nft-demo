@@ -16,7 +16,7 @@ def get_contract(self, address, abi_fn):
         return self.w3.eth.contract(address=self.w3.toChecksumAddress(address), abi=contract_abi)
 
 parser = argparse.ArgumentParser(description='vidnft testing', argument_default=argparse.SUPPRESS)
-parser.add_argument("-c", "--contract",  type=str, help="contract address", default="0x71f906422138478E9FF633ccE791E596679a67a7")
+parser.add_argument("-c", "--contract",  type=str, help="contract address", default="0x3649D96eCf0bD2808B2836386Aba919EC14Aa719")
 parser.add_argument("-t", "--token", type=int, help="token id", default=None)
 parser.add_argument("-u", "--uri", type=str, help="uri", default=None)
 
